@@ -10,14 +10,30 @@ import kenbox.core.util.UserDTO;
 import kenbox.hcm.appmasters.dao.DaoAppMaster;
 import kenbox.hcm.appmasters.dto.AppMasterDTO;
 import kenbox.hcm.appmasters.qo.AppMasterRepository;
+import kenbox.hcm.tenant.dao.DaoTableSequences;
+import kenbox.hcm.tenant.qo.TableSequenceRepository;
 
 @Service
 public class AppMasterService {
 	
 	@Autowired AppMasterRepository appMasterRepository;
+	@Autowired TableSequenceRepository tableSequenceRepository;
 	public AppMasterDTO addNewAppMaster(AppMasterDTO teo, UserDTO loginUser) {
+		
 		DaoAppMaster dao = copyTeoToDao(teo,loginUser);
+		DaoTableSequences daoTableSequences = tableSequenceRepository.findByTableName("APPMASTER",loginUser.getCompanyId());
+		dao.appMasterId = daoTableSequences.nextSeq;
+		
 		appMasterRepository.save(dao);
+		
+		daoTableSequences = new DaoTableSequences();
+		daoTableSequences.tableName = "APPMASTER";
+		daoTableSequences.nextSeq = daoTableSequences.nextSeq +1;
+		daoTableSequences.companyId = loginUser.getCompanyId();
+		tableSequenceRepository.save(daoTableSequences);
+		
+		
+	//Here we need to implement the code to update the value of	table sequences for the tablename appMaster
 		teo = copyDaoToTeo(appMasterRepository.findMasterByAppMasterId(teo.getAppMasterType(), teo.getAppMasterId(), loginUser.getCompanyId()),loginUser);
 		return teo;
 	}

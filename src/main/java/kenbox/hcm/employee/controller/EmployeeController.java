@@ -26,11 +26,21 @@ public class EmployeeController extends AppController{
 		return employeeManagementService.addNewEmployee();
 	}
 	
-	@GetMapping("/getEmployee")
+	
+	/*
+	 @GetMapping("/getEmployee")
+	 
 	public DaoEmployee getEmployee(@RequestParam int empId) {
 		UserDTO loginUser =  getLoginUser();
 		return employeeManagementService.getEmployeeByEmpId(empId);
 	}
+	*/
+	 @GetMapping("/getEmployee")
+	 
+		public DaoEmployee getEmployee(@RequestParam String userName) {
+			UserDTO loginUser =  getLoginUser();
+			return employeeManagementService.getEmployeeByUserName(userName);
+		}
 	
 	@GetMapping("/updateEmployee")
 	public DaoEmployee updateEmployee(@RequestBody EmployeeDTO dataTeo) {

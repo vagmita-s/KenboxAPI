@@ -59,5 +59,10 @@ public class EmployeeService {
 		  return employeeRepository.findByEmpId(empId,100);
 	  }
 	  
+	  public DaoEmployee getEmployeeByUserName(String userName) {
+		  return employeeRepository.findByUserName(userName,100);
+	  }
+	  
+	  
 	  
 }

@@ -1,5 +1,7 @@
 package kenbox.hcm.employee.dao;
 
+import java.util.ArrayList;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,4 +18,22 @@ public class DaoEmployee extends BaseDao{
 	  public String email;
 	  public String userName;
 	  public int empStatus;
+	  //new fields
+	public String title;
+	public String dateOfBirth;
+	public String gender;
+	public String contactNumber;
+	public String band;
+	public String grade;
+	public String designation;
+	public String reportingManager;
+	public String hrManager;
+	public String dateOfJoin;
+	public String groupDateOfJoining;
+	public String companyName;
+	public String entity;
+	public String department;
+	public String employmentType;
+	public String tenureOfCompany;
+	
 }
