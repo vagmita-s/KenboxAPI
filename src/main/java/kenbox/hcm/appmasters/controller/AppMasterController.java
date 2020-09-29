@@ -17,31 +17,31 @@ import kenbox.hcm.appmasters.service.AppMasterService;
 @CrossOrigin("http://localhost:3000")
 public class AppMasterController extends AppController{
 	
-	@Autowired AppMasterService appMasterManagementService;
+	@Autowired AppMasterService appAttributeManagementService;
 	
-	@PostMapping("/master/create")
+	@PostMapping("/createAppAttribute")
 	public AppMasterDTO addNewMaster(@RequestBody AppMasterDTO dataTeo) {
 		UserDTO loginUser =  getLoginUser();
-		return appMasterManagementService.addNewAppMaster(dataTeo,loginUser);
+		return appAttributeManagementService.addNewAppMaster(dataTeo,loginUser);
 	}
 	
-	@GetMapping("/master/get")
+	@GetMapping("/appAttribute/get")
 	public AppMasterDTO getMasterById(@RequestParam String appMasterType, @RequestParam int appMasterId) {
 		UserDTO loginUser =  getLoginUser();
-		return appMasterManagementService.getMasterByTypeAndId(appMasterType, appMasterId,loginUser);
+		return appAttributeManagementService.getMasterByTypeAndId(appMasterType, appMasterId,loginUser);
 	}
 	
-	@PostMapping("/master/update")//code to be added
+	@PostMapping("/appAttribute/update")//code to be added
 	public AppMasterDTO updateMasterById(@RequestBody AppMasterDTO dataTeo) {
 		UserDTO loginUser =  getLoginUser();
-		return appMasterManagementService.updateAppMaster(dataTeo,loginUser);
+		return appAttributeManagementService.updateAppMaster(dataTeo,loginUser);
 
 	}
 	
-	@GetMapping("/master/getAll")
+	@GetMapping("/appAttribute/getAll")
 	public AppMasterDTO[] getAllMaster(@RequestParam String appMasterType) {
 		UserDTO loginUser =  getLoginUser();
-		return appMasterManagementService.getAllMasterByType(appMasterType,loginUser);
+		return appAttributeManagementService.getAllMasterByType(appMasterType,loginUser);
 	}
 	
 	
