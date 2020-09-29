@@ -20,8 +20,8 @@ public class AppController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication != null) {
 			String userName = authentication.getName();
-			String[] userNameForCompany = StringUtils.split(userName, String.valueOf(Character.LINE_SEPARATOR));
-			DaoCompany daoAppCompany = companyRepository.findCompanyByCompanyName(userNameForCompany[1]);
+			String[] userNameForCompany = userName.split(String.valueOf(Character.LINE_SEPARATOR));//StringUtils.split(userName, String.valueOf(Character.LINE_SEPARATOR));
+			DaoCompany daoAppCompany = companyRepository.findCompanyByCompanyName(userNameForCompany[2]);
 			int companyId = daoAppCompany.companyId;
 			DaoEmployee daoEmployee = employeeRepository.findByUserName(userNameForCompany[0] , companyId);
 			UserDTO userDTO = new UserDTO();
@@ -31,6 +31,7 @@ public class AppController {
 			userDTO.setEmpId(daoEmployee.empId);
 			userDTO.setEmail(daoEmployee.email);
 			userDTO.setUserName(daoEmployee.userName);
+			userDTO.setCompanyId(daoEmployee.companyId);
 			//BeanUtils.copyProperties(daoEmployee, userTeo);
 			return userDTO;
 		}

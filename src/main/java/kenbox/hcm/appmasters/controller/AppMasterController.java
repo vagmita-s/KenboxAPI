@@ -31,10 +31,11 @@ public class AppMasterController extends AppController{
 		return appMasterManagementService.getMasterByTypeAndId(appMasterType, appMasterId,loginUser);
 	}
 	
-	@PostMapping("/master/update")
-	public AppMasterDTO updateMasterById() {
+	@PostMapping("/master/update")//code to be added
+	public AppMasterDTO updateMasterById(@RequestBody AppMasterDTO dataTeo) {
 		UserDTO loginUser =  getLoginUser();
-		return null;
+		return appMasterManagementService.updateAppMaster(dataTeo,loginUser);
+
 	}
 	
 	@GetMapping("/master/getAll")

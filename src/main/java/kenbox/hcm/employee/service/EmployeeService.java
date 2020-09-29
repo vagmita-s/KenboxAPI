@@ -4,17 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import kenbox.hcm.user.basicInformation.qo.BasicInformationRepository;
+import kenbox.hcm.user.basicInformation.service.BasicInformationService;
+import kenbox.core.util.UserDTO;
+import kenbox.hcm.authentication.mapper.JwtResponse;
 import kenbox.hcm.employee.dao.DaoEmployee;
 import kenbox.hcm.employee.dto.EmployeeDTO;
 import kenbox.hcm.employee.qo.EmployeeRepository;
+import kenbox.hcm.user.jobInformation.qo.JobInformationRepository;
 
 @Service
 public class EmployeeService {
 	private static List<EmployeeDTO> employees = new ArrayList<>();
 	@Autowired EmployeeRepository employeeRepository;
+//	@Autowired JobInformationRepository jobInformationRepository;
+//	@Autowired BasicInformationRepository basicInformationRepository;
+	
 	  static {
 		  EmployeeDTO e1 = new EmployeeDTO();
 		  e1.setEmpNo("1110");
@@ -55,14 +64,14 @@ public class EmployeeService {
 		  return employeeRepository.findByEmpId(10001,100);
 	  }
 	  
-	  public DaoEmployee getEmployeeByEmpId(int empId) {
-		  return employeeRepository.findByEmpId(empId,100);
+	  public DaoEmployee getEmployeeByEmpId(int empId,UserDTO loginUser) {
+		  return employeeRepository.findByEmpId(empId,loginUser.getCompanyId());
 	  }
 	  
-	  public DaoEmployee getEmployeeByUserName(String userName) {
-		  return employeeRepository.findByUserName(userName,100);
-	  }
+	 
 	  
 	  
+	 
 	  
+		
 }

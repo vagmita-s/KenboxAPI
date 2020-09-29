@@ -6,15 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import kenbox.hcm.appmasters.dao.DaoAppMaster;
 import kenbox.hcm.appmasters.qo.AppMasterRepository;
+import kenbox.hcm.authentication.dao.DaoUserAccount;
 import kenbox.hcm.authentication.qo.UserAccountRepository;
+import kenbox.hcm.company.dao.DaoCompany;
 import kenbox.hcm.company.qo.CompanyRepository;
+import kenbox.hcm.employee.dao.DaoEmployee;
 import kenbox.hcm.employee.qo.EmployeeRepository;
+import kenbox.hcm.organisationannouncement.dao.DaoOrganisationAnnouncement;
+import kenbox.hcm.organisationannouncement.qo.OrganisationAnnouncementRepository;
 import kenbox.hcm.tenant.dao.DaoTableSequences;
 import kenbox.hcm.tenant.qo.TableSequenceRepository;
+import kenbox.hcm.user.basicInformation.dao.DaoBasicInformation;
+import kenbox.hcm.user.basicInformation.qo.BasicInformationRepository;
 
 @SpringBootApplication
 @CrossOrigin("http://localhost:3000")
@@ -24,6 +34,9 @@ public class InitApplication implements CommandLineRunner{
 	@Autowired TableSequenceRepository tableSequenceRepository;
 	@Autowired EmployeeRepository employeeRepository;
 	@Autowired AppMasterRepository appMasterRepository;
+	@Autowired BasicInformationRepository basicInformationRepository;
+	@Autowired OrganisationAnnouncementRepository organisationAnnouncementRepository;
+
 	public static void main(String[] args) {		
 		SpringApplication.run(InitApplication.class, args);
 	}
@@ -34,10 +47,7 @@ public class InitApplication implements CommandLineRunner{
 		daoTableSequences.tableName = "APPMASTER";
 		daoTableSequences.nextSeq = 1;
 		daoTableSequences.companyId = 1001;
-		tableSequenceRepository.save(daoTableSequences);
-		
-		 
-		
+		tableSequenceRepository.save(daoTableSequences);	
 		
 		DaoAppMaster daoAppMaster = new DaoAppMaster();
 		DaoTableSequences daoTableSequences2 =  tableSequenceRepository.findByTableName("APPMASTER", 1001);
@@ -55,8 +65,9 @@ public class InitApplication implements CommandLineRunner{
 		daoTableSequences.nextSeq = daoTableSequences2.nextSeq +1;
 		daoTableSequences.companyId = 1001;
 		tableSequenceRepository.save(daoTableSequences);
-		
-		
+		*/
+	/*
+		DaoAppMaster daoAppMaster = new DaoAppMaster();
 		DaoTableSequences daoTableSequences3 =  tableSequenceRepository.findByTableName("APPMASTER", 1001);
 		daoAppMaster.appMasterId = daoTableSequences3.nextSeq ;
 		daoAppMaster.appMasterName = "Female";
@@ -66,8 +77,52 @@ public class InitApplication implements CommandLineRunner{
 		daoAppMaster.createdOn = new Date();
 		daoAppMaster.luts = System.currentTimeMillis();
 		appMasterRepository.save(daoAppMaster);
+			
 		*/
+		/*
+		DaoOrganisationAnnouncement daoOrganisationAnnouncement = new DaoOrganisationAnnouncement();
+		daoOrganisationAnnouncement.creator = "Admin";
+		daoOrganisationAnnouncement.announcementId = "3001";
+		daoOrganisationAnnouncement.subject = "Company Anniversary"  ;
+		daoOrganisationAnnouncement.announcement = "Hi Everyone !\n" + 
+				"You are an asset to our company, and I hope you'll continue on this path of hard work.\n" + 
+				"We are very proud of you, and we wish you a wonderful work anniversary.";
+		daoOrganisationAnnouncement.announcementDate = new Date();
+		daoOrganisationAnnouncement.startTime = "5:00pm";
+		daoOrganisationAnnouncement.venue = "Conference Room";
+		daoOrganisationAnnouncement.expiry = "Today";    
+		daoOrganisationAnnouncement.location = "Noida";
+		organisationAnnouncementRepository.save(daoOrganisationAnnouncement);
+		*/
+		/*
+		DaoOrganisationAnnouncement daoOrganisationAnnouncement = new DaoOrganisationAnnouncement();
+		daoOrganisationAnnouncement.creator = "Admin";
+		daoOrganisationAnnouncement.announcementId = "3002";
+		daoOrganisationAnnouncement.subject = "Employee Wellness Meet !"  ;
+		daoOrganisationAnnouncement.announcement = "Hi Everyone !\n" + 
+				"You are an asset to our company, and I hope you'll continue on this path of hard work.\n" + 
+				"We are very proud of you, and we wish you a wonderful work anniversary.";
+		daoOrganisationAnnouncement.announcementDate = new Date();
+		daoOrganisationAnnouncement.startTime = "6:00pm";
+		daoOrganisationAnnouncement.venue = "Conference Room";
+		daoOrganisationAnnouncement.expiry = "Today";    
+		daoOrganisationAnnouncement.location = "Noida";
+		organisationAnnouncementRepository.save(daoOrganisationAnnouncement);
 		
+		DaoOrganisationAnnouncement daoOrganisationAnnouncement2 = new DaoOrganisationAnnouncement();
+		daoOrganisationAnnouncement2.creator = "Admin";
+		daoOrganisationAnnouncement2.announcementId = "3003";
+		daoOrganisationAnnouncement2.subject = "Birthday Celebration Party"  ;
+		daoOrganisationAnnouncement2.announcement = "Hi Everyone !\n" + 
+				"You are an asset to our company, and I hope you'll continue on this path of hard work.\n" + 
+				"We are very proud of you, and we wish you a wonderful work anniversary.";
+		daoOrganisationAnnouncement2.announcementDate = new Date();
+		daoOrganisationAnnouncement2.startTime = "4:00pm";
+		daoOrganisationAnnouncement2.venue = "Conference Room";
+		daoOrganisationAnnouncement2.expiry = "Today";    
+		daoOrganisationAnnouncement2.location = "Noida";
+		organisationAnnouncementRepository.save(daoOrganisationAnnouncement2);
+		*/
 		/*
 		DaoCompany daoCompany = new DaoCompany();
 		daoCompany.companyId = 1;
@@ -85,8 +140,8 @@ public class InitApplication implements CommandLineRunner{
 		daoCompany.status = 0;
 		daoCompany.luts = System.currentTimeMillis();
 		companyRepository.save(daoCompany);
-		
 		*/
+		
 		/*
 		DaoUserAccount daoUser = new DaoUserAccount();
 		daoUser.companyId = 1001;
@@ -106,16 +161,32 @@ public class InitApplication implements CommandLineRunner{
 		daoUser.password = "admin";		
 		userAccountRepository.save(daoUser);
 		
-		DaoUserAccount daoUser = new DaoUserAccount();
+		daoUser = new DaoUserAccount();
 		daoUser = new DaoUserAccount();
 		daoUser.companyId = 1001;
 		daoUser.userName = "akdas.pali@gmail.com";
 		daoUser.password = "admin";		
 		userAccountRepository.save(daoUser);
-		*/
-	
-
 		
+	
+/*
+		DaoBasicInformation daoBasicInformation = new DaoBasicInformation();
+		daoBasicInformation.empId =1001;
+		daoBasicInformation.firstName = "Atulya";
+		daoBasicInformation.middleName = "kumar";
+		daoBasicInformation.lastName = "Das";
+		daoBasicInformation.email = "akdas.pali@gmail.com";
+		daoBasicInformation.userName = "akdas.pali@gmail.com";
+		daoBasicInformation.title = "Mr.";
+		daoBasicInformation.dateOfBirth = "01-01-1980";
+		daoBasicInformation.contactNumber = "8676561238";
+		daoBasicInformation.empStatus = 1;
+		daoBasicInformation.createdBy =1;
+		daoBasicInformation.companyId = 1001;
+		daoBasicInformation.createdOn = new Date();
+		daoBasicInformation.luts = System.currentTimeMillis();
+		basicInformationRepository.save(daoBasicInformation);
+		*/
 		/*
 		DaoEmployee daoEmployee = new DaoEmployee();
 		daoEmployee.empId =1001;
@@ -125,26 +196,122 @@ public class InitApplication implements CommandLineRunner{
 		daoEmployee.email = "akdas.pali@gmail.com";
 		daoEmployee.userName = "akdas.pali@gmail.com";
 		daoEmployee.title = "Mr.";
+		daoEmployee.gender = "male";
 		daoEmployee.dateOfBirth = "01-01-1980";
 		daoEmployee.contactNumber = "8676561238";
+		daoEmployee.nationality = "Indian";
+		daoEmployee.bloodType= "B+";
+	daoEmployee.weight= "70kg";
+	daoEmployee.height= "6 feet";
 		daoEmployee.band = "50k";
-		daoEmployee.grade= "50k";
+		daoEmployee.grade= "50k";	
+	daoEmployee.experienceInGroupCompany= "2 years";
+	daoEmployee.jobType= "IT Manager";
+	daoEmployee.placeOfBirth= "Delhi";
 		daoEmployee.designation= "System Architect";
 		daoEmployee.reportingManager= "XYZ Singh";
+		daoEmployee.skipManager = "KLM Sharma";
 		daoEmployee.hrManager= "ABC Kapoor";
 		daoEmployee.dateOfJoin= "01-01-2015";
 		daoEmployee.groupDateOfJoining = "01-01-2015";
 		daoEmployee.companyName = "Kenbox";
 		daoEmployee.entity= "xyz";
 		daoEmployee.department= "Software Development";
+		daoEmployee.subDepartment= "development";
+	daoEmployee.function= "development";
+	daoEmployee.subFunction= "development";
 		daoEmployee.employmentType= "Permanent";
-		daoEmployee.tenureOfCompany= "5 years";
+		daoEmployee.tenureOfCompany= "5 years";  	
+  	daoEmployee.experiencedType = "developer";
+  	daoEmployee.nameOfCompany= "Qwerty";
+  	daoEmployee.employeeCode= "TR005";
+  	daoEmployee.placeOfPostingLocation= "Delhi";
+  	daoEmployee.lastDesignation= "Web Designer";
+  	daoEmployee.firstDesignation= "web designer";
+  	daoEmployee.serviceStartDate= "10-10-10";
+  	daoEmployee.serviceEndDate= "15-12-15";
+  	daoEmployee.totalYearsOfStay= "5 years";
+  	daoEmployee.totalPromotionsDuringStay = "2";
+  	daoEmployee.majorResponsibilitiesHandled = "teamflow";
+  	daoEmployee.joiningCTC = "5lpa";
+  	daoEmployee.lastWithdrawnCTC = "20lpa";
+  	daoEmployee.averageGrowth = "20%";
+  	daoEmployee.reasonOfLeaving = "personal growth";
+  	daoEmployee.majorMilestones= "Good project planning";
+  	daoEmployee.experienceInCompany= "XYZ Pvt Ltd";
+  	daoEmployee.workLocation="New Delhi";
+  	daoEmployee.region= "NCR";
+  	daoEmployee.branch= "Delhi";
+  	daoEmployee.country= "India";
+  	daoEmployee.zone="North";
+  	daoEmployee.district="Delhi";  	
+  	daoEmployee.documentType= "adhaar";
+  	daoEmployee.nameOfDocument= "Aadhar Card";
+  	daoEmployee.idType = "Aadhar card";
+  	daoEmployee.placeOfIssue = "India";
+  	daoEmployee.idNumber = "1234567";
+  	daoEmployee.issuingAuthority= "Gov. Of India";
+  	daoEmployee.expiryDate = "12-12-2050";
+  	daoEmployee.familyName = "Neha";
+	daoEmployee.familyDateOfBirth = "12-12-1985";
+	daoEmployee.mobileNumber= "987654321";
+	daoEmployee.age= "35";
+	daoEmployee.profession= "teacher";
+	daoEmployee.permanentAddress= "friends colony";
+	daoEmployee.placeOfResidence= "delhi";
+	daoEmployee.relationship= "wife";
+	daoEmployee.totalChildren= 2;
+	daoEmployee.personalMail= "n@gmail.com";
+	daoEmployee.residentialAddress = "friends colony";
+	daoEmployee.medicalHistory = "none";
+	daoEmployee.highestQualification= "b.tech";
+	daoEmployee.qualificationLevel= "graduate";
+  	daoEmployee.degree= "btech";
+  	daoEmployee.specialization= "IT";
+  	daoEmployee.nameOfSchool= "St Mary's";
+  	daoEmployee.university= "AKTU";
+  	daoEmployee.courseType= "Btech";
+  	daoEmployee.finalScore= "70%";
+  	daoEmployee.scoreType= "percentage";
+  	daoEmployee.startDate= "12-12-12";
+  	daoEmployee.endDate= "12-02-13";
+  	daoEmployee.ranking= "3"; 
+  	daoEmployee.nameOfTraining= "Java Development";
+  	daoEmployee.locationOfTraining= "Delhi";
+  	daoEmployee.nameOfOrganization= "ABC Developers";
+  	daoEmployee.nameOfTrainingSchool= "ABC School";
+  	daoEmployee.duration= "6 months";
+  	daoEmployee.majorLearnings= "Java";
+  	daoEmployee.nameOfSponsoredCompany= "ABC";
+  	daoEmployee.activityType= "Sports";
+  	daoEmployee.numberOfHours= "70 hours";
+  	daoEmployee.participationLevel= "member";
+  	daoEmployee.rewardType= "Certificate of Appreciation";	
+  	daoEmployee.description= "The person did excellent to achieve the goal"; 
+  	daoEmployee.dateOfAward= "12-12-12";
+  	daoEmployee.rewardReason= "Out-of-Box Thinking";
+  	daoEmployee.awardingAuthority= "CEO";
+  	daoEmployee.numberSalaryAccount= "1";
+  	daoEmployee.accountNumber= "1356148790918074";
+  	daoEmployee.branchAddress= "Friends colony";
+  	daoEmployee.accountNature= "Savings";
+  	daoEmployee.bankName= "SBI";
+  	daoEmployee.ifscCode= "SBI23445";
+  	daoEmployee.branchName= "Civil Lines";
+  	daoEmployee.addressType= "Permanen";
+  	daoEmployee.addressLine2= "Ashok Nagr";
+  	daoEmployee.addressLine1= "AB-1123";
+  	daoEmployee.state= "Delhi";
+  	daoEmployee.pincode= "000000";
+  	
 		daoEmployee.empStatus = 1;
 		daoEmployee.createdBy =1;
 		daoEmployee.companyId = 1001;
 		daoEmployee.createdOn = new Date();
 		daoEmployee.luts = System.currentTimeMillis();
 		employeeRepository.save(daoEmployee);
+		
+		
 		daoEmployee = new DaoEmployee();
 		daoEmployee.empId =1002;
 		daoEmployee.firstName = "Ram";
@@ -153,11 +320,24 @@ public class InitApplication implements CommandLineRunner{
 		daoEmployee.email = "ram.pali@gmail.com";
 		daoEmployee.userName = "ram.pali@gmail.com";
 		daoEmployee.title = "Mr.";
+		daoEmployee.gender = "male";
 		daoEmployee.dateOfBirth = "01-01-1980";
 		daoEmployee.contactNumber = "4362801836";
 		daoEmployee.band = "40k";
 		daoEmployee.grade= "35k";
+		daoEmployee.dateOfBirth = "01-01-1980";
+		daoEmployee.contactNumber = "8676561238";
+		daoEmployee.nationality = "Indian";
+		daoEmployee.bloodType= "B+";
+	daoEmployee.weight= "70kg";
+	daoEmployee.height= "6 feet";
+		daoEmployee.band = "50k";
+		daoEmployee.grade= "50k";	
+	daoEmployee.experienceInGroupCompany= "2 years";
+	daoEmployee.jobType= "IT Manager";
+	daoEmployee.placeOfBirth= "Delhi";
 		daoEmployee.designation= "Web Developer";
+		daoEmployee.skipManager = "KLM Sharma";
 		daoEmployee.reportingManager= "XYZ Sharma";
 		daoEmployee.hrManager= "ABC Kapoor";
 		daoEmployee.dateOfJoin= "01-08-2015";
@@ -165,14 +345,101 @@ public class InitApplication implements CommandLineRunner{
 		daoEmployee.companyName = "Kenbox";
 		daoEmployee.entity= "abc";
 		daoEmployee.department= "Software Development";
+		daoEmployee.subDepartment= "development";
+	daoEmployee.function= "development";
+	daoEmployee.subFunction= "development";
 		daoEmployee.employmentType= "Permanent";
-		daoEmployee.tenureOfCompany= "3 years";
+		daoEmployee.tenureOfCompany= "5 years";  	
+  	daoEmployee.experiencedType = "developer";
+  	daoEmployee.nameOfCompany= "Qwerty";
+  	daoEmployee.employeeCode= "TR005";
+  	daoEmployee.placeOfPostingLocation= "Delhi";
+  	daoEmployee.lastDesignation= "Web Designer";
+  	daoEmployee.firstDesignation= "web designer";
+  	daoEmployee.serviceStartDate= "10-10-10";
+  	daoEmployee.serviceEndDate= "15-12-15";
+  	daoEmployee.totalYearsOfStay= "5 years";
+  	daoEmployee.totalPromotionsDuringStay = "2";
+  	daoEmployee.majorResponsibilitiesHandled = "teamflow";
+  	daoEmployee.joiningCTC = "5lpa";
+  	daoEmployee.lastWithdrawnCTC = "20lpa";
+  	daoEmployee.averageGrowth = "20%";
+  	daoEmployee.reasonOfLeaving = "personal growth";
+  	daoEmployee.majorMilestones= "Good project planning";
+  	daoEmployee.experienceInCompany= "XYZ Pvt Ltd";
+  	daoEmployee.workLocation="New Delhi";
+  	daoEmployee.region= "NCR";
+  	daoEmployee.branch= "Delhi";
+  	daoEmployee.country= "India";
+  	daoEmployee.zone="North";
+  	daoEmployee.district="Delhi";  	
+  	daoEmployee.documentType= "adhaar";
+  	daoEmployee.nameOfDocument= "Aadhar Card";
+  	daoEmployee.idType = "Aadhar card";
+  	daoEmployee.placeOfIssue = "India";
+  	daoEmployee.idNumber = "1234567";
+  	daoEmployee.issuingAuthority= "Gov. Of India";
+  	daoEmployee.expiryDate = "12-12-2050";
+  	daoEmployee.familyName = "Neha";
+	daoEmployee.familyDateOfBirth = "12-12-1985";
+	daoEmployee.mobileNumber= "987654321";
+	daoEmployee.age= "35";
+	daoEmployee.profession= "teacher";
+	daoEmployee.permanentAddress= "friends colony";
+	daoEmployee.placeOfResidence= "delhi";
+	daoEmployee.relationship= "wife";
+	daoEmployee.totalChildren= 2;
+	daoEmployee.personalMail= "n@gmail.com";
+	daoEmployee.residentialAddress = "friends colony";
+	daoEmployee.medicalHistory = "none";
+	daoEmployee.highestQualification= "b.tech";
+	daoEmployee.qualificationLevel= "graduate";
+  	daoEmployee.degree= "btech";
+  	daoEmployee.specialization= "IT";
+  	daoEmployee.nameOfSchool= "St Mary's";
+  	daoEmployee.university= "AKTU";
+  	daoEmployee.courseType= "Btech";
+  	daoEmployee.finalScore= "70%";
+  	daoEmployee.scoreType= "percentage";
+  	daoEmployee.startDate= "12-12-12";
+  	daoEmployee.endDate= "12-02-13";
+  	daoEmployee.ranking= "3"; 
+  	daoEmployee.nameOfTraining= "Java Development";
+  	daoEmployee.locationOfTraining= "Delhi";
+  	daoEmployee.nameOfOrganization= "ABC Developers";
+  	daoEmployee.nameOfTrainingSchool= "ABC School";
+  	daoEmployee.duration= "6 months";
+  	daoEmployee.majorLearnings= "Java";
+  	daoEmployee.nameOfSponsoredCompany= "ABC";
+  	daoEmployee.activityType= "Sports";
+  	daoEmployee.numberOfHours= "70 hours";
+  	daoEmployee.participationLevel= "member";
+  	daoEmployee.rewardType= "Certificate of Appreciation";	
+  	daoEmployee.description= "The person did excellent to achieve the goal"; 
+  	daoEmployee.dateOfAward= "12-12-12";
+  	daoEmployee.rewardReason= "Out-of-Box Thinking";
+  	daoEmployee.awardingAuthority= "CEO";
+  	daoEmployee.numberSalaryAccount= "1";
+  	daoEmployee.accountNumber= "1356148790918074";
+  	daoEmployee.branchAddress= "Friends colony";
+  	daoEmployee.accountNature= "Savings";
+  	daoEmployee.bankName= "SBI";
+  	daoEmployee.ifscCode= "SBI23445";
+  	daoEmployee.branchName= "Civil Lines";
+  	daoEmployee.addressType= "Permanen";
+  	daoEmployee.addressLine2= "Ashok Nagr";
+  	daoEmployee.addressLine1= "AB-1123";
+  	daoEmployee.state= "Delhi";
+  	daoEmployee.pincode= "000000";
+  	
 		daoEmployee.empStatus = 1;
 		daoEmployee.createdBy =1;
 		daoEmployee.companyId = 1001;
 		daoEmployee.createdOn = new Date();
 		daoEmployee.luts = System.currentTimeMillis();
 		employeeRepository.save(daoEmployee);
+		
+		
 		 daoEmployee = new DaoEmployee();
 		daoEmployee.empId =1003;
 		daoEmployee.firstName = "Tom";
@@ -181,20 +448,118 @@ public class InitApplication implements CommandLineRunner{
 		daoEmployee.email = "tom.t@gmail.com";
 		daoEmployee.userName = "tom.t@gmail.com";
 		daoEmployee.title = "Mr.";
+		daoEmployee.gender = "male";
 		daoEmployee.dateOfBirth = "01-01-1980";
 		daoEmployee.contactNumber = "8654729238";
 		daoEmployee.band = "40k";
 		daoEmployee.grade= "35k";
 		daoEmployee.designation= "Software Developer";
+		daoEmployee.dateOfBirth = "01-01-1980";
+		daoEmployee.contactNumber = "8676561238";
+		daoEmployee.nationality = "Indian";
+		daoEmployee.bloodType= "B+";
+	daoEmployee.weight= "70kg";
+	daoEmployee.height= "6 feet";
+		daoEmployee.band = "50k";
+		daoEmployee.grade= "50k";	
+	daoEmployee.experienceInGroupCompany= "2 years";
+	daoEmployee.jobType= "IT Manager";
+	daoEmployee.placeOfBirth= "Delhi";
 		daoEmployee.reportingManager= "KLM Singh";
+		daoEmployee.skipManager = "KLM Sharma";
 		daoEmployee.hrManager= "ABC Kapoor";
 		daoEmployee.dateOfJoin= "01-08-2015";
 		daoEmployee.groupDateOfJoining = "01-08-2015";
 		daoEmployee.companyName = "Kenbox";
 		daoEmployee.entity= "abc";
 		daoEmployee.department= "Software Development";
+		daoEmployee.subDepartment= "development";
+	daoEmployee.function= "development";
+	daoEmployee.subFunction= "development";
 		daoEmployee.employmentType= "Permanent";
-		daoEmployee.tenureOfCompany= "10years";
+		daoEmployee.tenureOfCompany= "5 years";  	
+  	daoEmployee.experiencedType = "developer";
+  	daoEmployee.nameOfCompany= "Qwerty";
+  	daoEmployee.employeeCode= "TR005";
+  	daoEmployee.placeOfPostingLocation= "Delhi";
+  	daoEmployee.lastDesignation= "Web Designer";
+  	daoEmployee.firstDesignation= "web designer";
+  	daoEmployee.serviceStartDate= "10-10-10";
+  	daoEmployee.serviceEndDate= "15-12-15";
+  	daoEmployee.totalYearsOfStay= "5 years";
+  	daoEmployee.totalPromotionsDuringStay = "2";
+  	daoEmployee.majorResponsibilitiesHandled = "teamflow";
+  	daoEmployee.joiningCTC = "5lpa";
+  	daoEmployee.lastWithdrawnCTC = "20lpa";
+  	daoEmployee.averageGrowth = "20%";
+  	daoEmployee.reasonOfLeaving = "personal growth";
+  	daoEmployee.majorMilestones= "Good project planning";
+  	daoEmployee.experienceInCompany= "XYZ Pvt Ltd";
+  	daoEmployee.workLocation="New Delhi";
+  	daoEmployee.region= "NCR";
+  	daoEmployee.branch= "Delhi";
+  	daoEmployee.country= "India";
+  	daoEmployee.zone="North";
+  	daoEmployee.district="Delhi";  	
+  	daoEmployee.documentType= "adhaar";
+  	daoEmployee.nameOfDocument= "Aadhar Card";
+  	daoEmployee.idType = "Aadhar card";
+  	daoEmployee.placeOfIssue = "India";
+  	daoEmployee.idNumber = "1234567";
+  	daoEmployee.issuingAuthority= "Gov. Of India";
+  	daoEmployee.expiryDate = "12-12-2050";
+  	daoEmployee.familyName = "Neha";
+	daoEmployee.familyDateOfBirth = "12-12-1985";
+	daoEmployee.mobileNumber= "987654321";
+	daoEmployee.age= "35";
+	daoEmployee.profession= "teacher";
+	daoEmployee.permanentAddress= "friends colony";
+	daoEmployee.placeOfResidence= "delhi";
+	daoEmployee.relationship= "wife";
+	daoEmployee.totalChildren= 2;
+	daoEmployee.personalMail= "n@gmail.com";
+	daoEmployee.residentialAddress = "friends colony";
+	daoEmployee.medicalHistory = "none";
+	daoEmployee.highestQualification= "b.tech";
+	daoEmployee.qualificationLevel= "graduate";
+  	daoEmployee.degree= "btech";
+  	daoEmployee.specialization= "IT";
+  	daoEmployee.nameOfSchool= "St Mary's";
+  	daoEmployee.university= "AKTU";
+  	daoEmployee.courseType= "Btech";
+  	daoEmployee.finalScore= "70%";
+  	daoEmployee.scoreType= "percentage";
+  	daoEmployee.startDate= "12-12-12";
+  	daoEmployee.endDate= "12-02-13";
+  	daoEmployee.ranking= "3"; 
+  	daoEmployee.nameOfTraining= "Java Development";
+  	daoEmployee.locationOfTraining= "Delhi";
+  	daoEmployee.nameOfOrganization= "ABC Developers";
+  	daoEmployee.nameOfTrainingSchool= "ABC School";
+  	daoEmployee.duration= "6 months";
+  	daoEmployee.majorLearnings= "Java";
+  	daoEmployee.nameOfSponsoredCompany= "ABC";
+  	daoEmployee.activityType= "Sports";
+  	daoEmployee.numberOfHours= "70 hours";
+  	daoEmployee.participationLevel= "member";
+  	daoEmployee.rewardType= "Certificate of Appreciation";	
+  	daoEmployee.description= "The person did excellent to achieve the goal"; 
+  	daoEmployee.dateOfAward= "12-12-12";
+  	daoEmployee.rewardReason= "Out-of-Box Thinking";
+  	daoEmployee.awardingAuthority= "CEO";
+  	daoEmployee.numberSalaryAccount= "1";
+  	daoEmployee.accountNumber= "1356148790918074";
+  	daoEmployee.branchAddress= "Friends colony";
+  	daoEmployee.accountNature= "Savings";
+  	daoEmployee.bankName= "SBI";
+  	daoEmployee.ifscCode= "SBI23445";
+  	daoEmployee.branchName= "Civil Lines";
+  	daoEmployee.addressType= "Permanen";
+  	daoEmployee.addressLine2= "Ashok Nagr";
+  	daoEmployee.addressLine1= "AB-1123";
+  	daoEmployee.state= "Delhi";
+  	daoEmployee.pincode= "000000";
+  	
 		daoEmployee.empStatus = 1;
 		daoEmployee.createdBy =1;
 		daoEmployee.companyId = 1001;
@@ -219,4 +584,5 @@ public class InitApplication implements CommandLineRunner{
 		employeeRepository.save(daoEmployee);*/
 		
 	}
+
 }

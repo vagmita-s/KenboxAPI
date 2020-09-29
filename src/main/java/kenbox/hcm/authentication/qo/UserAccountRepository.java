@@ -5,4 +5,5 @@ import kenbox.hcm.authentication.dao.DaoUserAccount;
 
 public interface UserAccountRepository extends BaseDBRepository<DaoUserAccount> {
 	DaoUserAccount findByUserName(String userName, int companyId);
+	DaoUserAccount findByToken(long token);
 }

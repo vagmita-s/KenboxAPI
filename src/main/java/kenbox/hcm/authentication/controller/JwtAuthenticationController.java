@@ -25,7 +25,7 @@ public class JwtAuthenticationController {
 	@PostMapping("/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception 
 	{
-		String userNameForCompany = String.format("%s%s%s", authenticationRequest.getUsername().trim(),String.valueOf(Character.LINE_SEPARATOR), authenticationRequest.getCompanyName());
+		String userNameForCompany = authenticationRequest.getUsername().trim()+String.valueOf(Character.LINE_SEPARATOR)+authenticationRequest.getPassword()+String.valueOf(Character.LINE_SEPARATOR)+authenticationRequest.getCompanyName();//String.format("%s%s%s", authenticationRequest.getUsername().trim(),String.valueOf(Character.LINE_SEPARATOR), authenticationRequest.getCompanyName());
 		System.out.println("authenticate :: "+authenticationRequest.getUsername());
 		
 		final UserDetails userDetails =  userDetailsService.loadUserByUsername(userNameForCompany);

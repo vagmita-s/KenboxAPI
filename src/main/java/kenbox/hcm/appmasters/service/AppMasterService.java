@@ -26,6 +26,7 @@ public class AppMasterService {
 		
 		appMasterRepository.save(dao);
 		
+		//code to update the value of	table sequences for the tablename appMaster
 		daoTableSequences = new DaoTableSequences();
 		daoTableSequences.tableName = "APPMASTER";
 		daoTableSequences.nextSeq = daoTableSequences.nextSeq +1;
@@ -33,7 +34,6 @@ public class AppMasterService {
 		tableSequenceRepository.save(daoTableSequences);
 		
 		
-	//Here we need to implement the code to update the value of	table sequences for the tablename appMaster
 		teo = copyDaoToTeo(appMasterRepository.findMasterByAppMasterId(teo.getAppMasterType(), teo.getAppMasterId(), loginUser.getCompanyId()),loginUser);
 		return teo;
 	}

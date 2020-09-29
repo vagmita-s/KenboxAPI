@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import kenbox.hcm.authentication.dao.DaoUserAccount;
 import kenbox.hcm.authentication.qo.UserAccountRepository;
@@ -25,15 +24,15 @@ public class JwtUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException 
 	{
-		String[] userNameForCompany = StringUtils.split(userName, String.valueOf(Character.LINE_SEPARATOR));
-		if (userNameForCompany == null || userNameForCompany.length != 2) {
+		String[] userNameForCompany = userName.split(String.valueOf(Character.LINE_SEPARATOR));//StringUtils.split(userName, String.valueOf(Character.LINE_SEPARATOR));
+		if (userNameForCompany == null || userNameForCompany.length != 3) {
             throw new UsernameNotFoundException("Username and company must be provided");
         }
-		System.out.println("input userName :: "+userNameForCompany[0] + "and company :: "+userNameForCompany[1]);
-		DaoCompany daoCompany = companyRepository.findCompanyByCompanyName(userNameForCompany[1]);
+		System.out.println("input userName :: "+userNameForCompany[0] + "and password :: "+userNameForCompany[1] + "and company :: "+userNameForCompany[2]);
+		DaoCompany daoCompany = companyRepository.findCompanyByCompanyName(userNameForCompany[2]);
 		int companyId = daoCompany.companyId;
 		DaoUserAccount userAccount = userAccountRepository.findByUserName(userNameForCompany[0],companyId);
-		if(userAccount != null) {
+		if(userAccount != null && userNameForCompany[1].equals(userAccount.password)) {
 			System.out.println("success from database userName :: "+userName);
 			return new User(userName, userAccount.password,new ArrayList<>());
 			/*UserAccountDTO user = new UserAccountDTO();
